@@ -39,6 +39,8 @@ subprojects {
 
     tasks.withType<Javadoc>().configureEach {
         (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:all,-missing", true)
+        // A Javadoc warning, such as a broken link or reference, fails the build.
+        (options as StandardJavadocDocletOptions).addBooleanOption("Xwerror", true)
     }
 
     dependencies {
