@@ -7,7 +7,7 @@ SPDX-License-Identifier: MPL-2.0 WITH AdditionRef-Progmasoft-Exception-2.0
 
 Archer is a columnar in-memory format and its libraries for the JVM: memory outside the Java heap, and vectors laid
 out in it for fast analytical work. It plays the part Apache Arrow plays, for Java 21 and later and the JVM languages
-that call Java, such as Kotlin and Scala, rather than for many languages at once. The name comes from French: an *archer* is the one who shoots the arrows.
+that call Java, such as Kotlin and Scala, rather than for many languages at once. The name comes from French: an *archer* is the one who shoots the arrows, a nod to Apache Arrow.
 
 Archer is under development and has no release yet.
 
