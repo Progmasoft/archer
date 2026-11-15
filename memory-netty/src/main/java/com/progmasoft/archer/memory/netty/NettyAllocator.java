@@ -88,6 +88,16 @@ public final class NettyAllocator extends AccountingAllocator {
     }
 
     @Override
+    protected void getBytes0(long index, byte[] destination, int offset, int length) {
+      memory.getBytes((int) index, destination, offset, length);
+    }
+
+    @Override
+    protected void setBytes0(long index, byte[] source, int offset, int length) {
+      memory.setBytes((int) index, source, offset, length);
+    }
+
+    @Override
     protected void setZero0(long index, long length) {
       memory.setZero((int) index, (int) length);
     }

@@ -29,6 +29,18 @@ public interface MemoryBuffer extends AutoCloseable {
 
   void setLong(long index, long value);
 
+  /**
+   * Copies {@code length} bytes from {@code index} into {@code destination}, starting at {@code
+   * offset} there.
+   */
+  void getBytes(long index, byte[] destination, int offset, int length);
+
+  /**
+   * Copies {@code length} bytes of {@code source}, starting at {@code offset} there, to {@code
+   * index}.
+   */
+  void setBytes(long index, byte[] source, int offset, int length);
+
   /** Sets {@code length} bytes from {@code index} to zero. */
   void setZero(long index, long length);
 

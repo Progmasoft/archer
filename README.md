@@ -17,7 +17,7 @@ Archer is under development and has no release yet.
 |---|---|
 | `com.progmasoft.archer:archer-memory` | `MemoryBuffer`, little-endian memory with checked accesses, and `BufferAllocator`s that count what their buffers hold, enforce a limit and refuse to close while a buffer is open. `DirectAllocator` uses direct `ByteBuffer`s. |
 | `com.progmasoft.archer:archer-memory-netty` | `NettyAllocator`, the same allocator on Netty's pooled direct buffers. |
-| `com.progmasoft.archer:archer-vector` | Columnar vectors on those buffers, starting with `IntVector`: values and a validity bitmap, least significant bit first. |
+| `com.progmasoft.archer:archer-vector` | Columnar vectors on those buffers. `IntVector`, `LongVector` and `DoubleVector` are fixed-width columns: values and a validity bitmap, least significant bit first. `VarCharVector` holds UTF-8 strings: their bytes, 32-bit offsets into them and a validity bitmap, written in index order. |
 
 ```kotlin
 repositories {
@@ -35,6 +35,13 @@ try (BufferAllocator allocator = new NettyAllocator(64L << 20);
      IntVector vector = new IntVector(allocator, 1024)) {
     vector.set(0, 42);
     vector.setNull(1);
+}
+
+try (BufferAllocator allocator = new NettyAllocator(64L << 20);
+     VarCharVector names = new VarCharVector(allocator, 1024, 16 << 10)) {
+    names.set(0, "Ada");
+    names.setNull(1);
+    names.set(2, "Grace");
 }
 ```
 

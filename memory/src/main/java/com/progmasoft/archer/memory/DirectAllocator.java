@@ -69,6 +69,16 @@ public final class DirectAllocator extends AccountingAllocator {
     }
 
     @Override
+    protected void getBytes0(long index, byte[] destination, int offset, int length) {
+      memory.get((int) index, destination, offset, length);
+    }
+
+    @Override
+    protected void setBytes0(long index, byte[] source, int offset, int length) {
+      memory.put((int) index, source, offset, length);
+    }
+
+    @Override
     protected void setZero0(long index, long length) {
       for (int i = (int) index, end = (int) (index + length); i < end; i++) {
         memory.put(i, (byte) 0);
