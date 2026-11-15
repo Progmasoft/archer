@@ -56,3 +56,4 @@ Archer builds with any JDK from 21 on and is compiled against the Java 21 API.
 ## License
 
 [MIT](LICENSE.txt).
+Progmasoft's own code is also covered by the [Progmasoft Patent Grant 1.1](PATENTS.md).
