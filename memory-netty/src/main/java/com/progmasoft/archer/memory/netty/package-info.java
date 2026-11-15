@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2026 Progmasoft <support@progmasoft.com>
- * SPDX-License-Identifier: MPL-2.0 WITH AdditionRef-Progmasoft-Exception-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 /** The allocator of archer-memory on Netty's direct buffers. */

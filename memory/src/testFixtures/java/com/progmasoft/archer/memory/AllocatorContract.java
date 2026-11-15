@@ -1,10 +1,11 @@
 /*
  * SPDX-FileCopyrightText: 2026 Progmasoft <support@progmasoft.com>
- * SPDX-License-Identifier: MPL-2.0 WITH AdditionRef-Progmasoft-Exception-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 package com.progmasoft.archer.memory;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -46,6 +47,24 @@ public abstract class AllocatorContract {
       buffer.setZero(0, 16);
       assertEquals(0, buffer.getInt(0));
       assertEquals(0, buffer.getLong(8));
+    }
+  }
+
+  @Test
+  void bytesAreCopiedInAndOut() {
+    try (BufferAllocator allocator = allocator(1024);
+        MemoryBuffer buffer = allocator.allocate(8)) {
+      buffer.setBytes(2, new byte[] {9, 1, 2, 3, 9}, 1, 3);
+      assertEquals(1, buffer.getByte(2));
+      assertEquals(3, buffer.getByte(4));
+      assertEquals(0, buffer.getByte(5));
+      byte[] out = new byte[5];
+      buffer.getBytes(1, out, 1, 4);
+      assertArrayEquals(new byte[] {0, 0, 1, 2, 3}, out);
+      buffer.setBytes(8, new byte[0], 0, 0);
+      assertThrows(IndexOutOfBoundsException.class, () -> buffer.setBytes(6, new byte[3], 0, 3));
+      assertThrows(IndexOutOfBoundsException.class, () -> buffer.getBytes(0, out, 3, 3));
+      assertThrows(IndexOutOfBoundsException.class, () -> buffer.getBytes(0, out, -1, 1));
     }
   }
 

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2026 Progmasoft <support@progmasoft.com>
- * SPDX-License-Identifier: MPL-2.0 WITH AdditionRef-Progmasoft-Exception-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 package com.progmasoft.archer.memory.netty;
@@ -85,6 +85,16 @@ public final class NettyAllocator extends AccountingAllocator {
     @Override
     protected void setLong0(long index, long value) {
       memory.setLongLE((int) index, value);
+    }
+
+    @Override
+    protected void getBytes0(long index, byte[] destination, int offset, int length) {
+      memory.getBytes((int) index, destination, offset, length);
+    }
+
+    @Override
+    protected void setBytes0(long index, byte[] source, int offset, int length) {
+      memory.setBytes((int) index, source, offset, length);
     }
 
     @Override

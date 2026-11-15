@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2026 Progmasoft <support@progmasoft.com>
- * SPDX-License-Identifier: MPL-2.0 WITH AdditionRef-Progmasoft-Exception-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 package com.progmasoft.archer.memory;
@@ -71,6 +71,20 @@ public abstract class AbstractMemoryBuffer implements MemoryBuffer {
   }
 
   @Override
+  public final void getBytes(long index, byte[] destination, int offset, int length) {
+    Objects.checkFromIndexSize(offset, length, destination.length);
+    check(index, length);
+    getBytes0(index, destination, offset, length);
+  }
+
+  @Override
+  public final void setBytes(long index, byte[] source, int offset, int length) {
+    Objects.checkFromIndexSize(offset, length, source.length);
+    check(index, length);
+    setBytes0(index, source, offset, length);
+  }
+
+  @Override
   public final void setZero(long index, long length) {
     check(index, length);
     setZero0(index, length);
@@ -116,6 +130,12 @@ public abstract class AbstractMemoryBuffer implements MemoryBuffer {
 
   /** Writes a little-endian long whose bytes are inside the buffer. */
   protected abstract void setLong0(long index, long value);
+
+  /** Copies bytes that are inside the buffer to a range of an array that is inside it. */
+  protected abstract void getBytes0(long index, byte[] destination, int offset, int length);
+
+  /** Copies a range of an array that is inside it to bytes that are inside the buffer. */
+  protected abstract void setBytes0(long index, byte[] source, int offset, int length);
 
   /** Zeroes bytes that are inside the buffer. */
   protected abstract void setZero0(long index, long length);
